@@ -1,0 +1,404 @@
+# API Sample Inputs for Prompt Engineering & Pydantic LLM Validation
+# ================================================================
+
+This file contains sample inputs for all API endpoints with different scenarios.
+Use these examples to test the API functionality and understand different use cases.
+
+## Base URL
+http://localhost:8000
+
+## 1. GET / (Root Endpoint)
+# ================================
+
+URL: GET http://localhost:8000/
+Description: Welcome endpoint with API information
+Input: No input required
+
+Expected Response:
+{
+  "message": "Prompt Engineering & Pydantic LLM Validation API",
+  "topics_covered": [...],
+  "endpoints": [...]
+}
+
+## 2. GET /health (Health Check)
+# ===============================
+
+URL: GET http://localhost:8000/health
+Description: Health check endpoint
+Input: No input required
+
+Expected Response:
+{
+  "status": "healthy",
+  "timestamp": "2024-01-15T10:30:00.123456"
+}
+
+## 3. POST /extract-task (Main Task Extraction)
+# ==============================================
+
+URL: POST http://localhost:8000/extract-task
+Description: Extract structured task information from text using different prompt types
+Content-Type: application/json
+
+### Scenario 1: Business Task with Deadline (High Priority)
+Input:
+{
+  "text": "Complete the quarterly financial report by Friday, it's very important for the board meeting",
+  "prompt_type": "few-shot"
+}
+
+Expected Output:
+{
+  "title": "Complete quarterly financial report",
+  "due_date": "2024-05-31",
+  "priority": "high",
+  "description": "Financial report for board meeting"
+}
+
+### Scenario 2: Casual Personal Task (Low Priority)
+Input:
+{
+  "text": "Buy groceries sometime this week when I have time",
+  "prompt_type": "zero-shot"
+}
+
+Expected Output:
+{
+  "title": "Buy groceries",
+  "due_date": null,
+  "priority": "low",
+  "description": "Weekly grocery shopping"
+}
+
+### Scenario 3: Urgent Task with Explicit Urgency
+Input:
+{
+  "text": "Submit the project proposal by end of month - URGENT! Client is waiting",
+  "prompt_type": "chain-of-thought"
+}
+
+Expected Output:
+{
+  "title": "Submit project proposal",
+  "due_date": "2024-01-31",
+  "priority": "urgent",
+  "description": "Client project proposal submission"
+}
+
+### Scenario 4: Meeting Scheduling (Medium Priority)
+Input:
+{
+  "text": "Schedule a team meeting for next Tuesday at 2 PM to discuss the new project requirements",
+  "prompt_type": "few-shot"
+}
+
+Expected Output:
+{
+  "title": "Schedule team meeting",
+  "due_date": "2024-01-16",
+  "priority": "medium",
+  "description": "Discuss new project requirements"
+}
+
+### Scenario 5: Simple Task without Context
+Input:
+{
+  "text": "Call mom",
+  "prompt_type": "zero-shot"
+}
+
+Expected Output:
+{
+  "title": "Call mom",
+  "due_date": null,
+  "priority": "medium",
+  "description": null
+}
+
+### Scenario 6: Multiple Actions in One Text
+Input:
+{
+  "text": "Finish the presentation and send it to the client by tomorrow morning, this is critical",
+  "prompt_type": "few-shot"
+}
+
+Expected Output:
+{
+  "title": "Finish presentation and send to client",
+  "due_date": "2024-01-16",
+  "priority": "high",
+  "description": "Critical client presentation"
+}
+
+### Scenario 7: Task with Specific Time
+Input:
+{
+  "text": "Doctor appointment on Wednesday at 3:30 PM - don't forget to bring insurance card",
+  "prompt_type": "chain-of-thought"
+}
+
+Expected Output:
+{
+  "title": "Doctor appointment",
+  "due_date": "2024-01-17",
+  "priority": "medium",
+  "description": "Bring insurance card"
+}
+
+### Scenario 8: Work Assignment with Dependencies
+Input:
+{
+  "text": "Review the code changes and merge the pull request before the deployment on Friday",
+  "prompt_type": "few-shot"
+}
+
+Expected Output:
+{
+  "title": "Review code changes and merge pull request",
+  "due_date": "2024-01-19",
+  "priority": "high",
+  "description": "Required before Friday deployment"
+}
+
+### Scenario 9: Personal Development Task
+Input:
+{
+  "text": "Read the new Python book chapter about async programming when I get a chance",
+  "prompt_type": "zero-shot"
+}
+
+Expected Output:
+{
+  "title": "Read Python book chapter on async programming",
+  "due_date": null,
+  "priority": "low",
+  "description": "Personal development reading"
+}
+
+### Scenario 10: Event Planning
+Input:
+{
+  "text": "Organize the company holiday party for December 20th, need to book venue and catering ASAP",
+  "prompt_type": "chain-of-thought"
+}
+
+Expected Output:
+{
+  "title": "Organize company holiday party",
+  "due_date": "2024-12-20",
+  "priority": "urgent",
+  "description": "Book venue and catering"
+}
+
+### Scenario 11: Non-Task Text (Should Handle Gracefully)
+Input:
+{
+  "text": "Hello, my name is John and I live in New York",
+  "prompt_type": "few-shot"
+}
+
+Expected Behavior: Should return an error or handle gracefully with appropriate message
+
+### Scenario 12: Ambiguous Text
+Input:
+{
+  "text": "Maybe we should think about doing something about the situation",
+  "prompt_type": "chain-of-thought"
+}
+
+Expected Behavior: Should extract what it can or provide appropriate feedback
+
+## 4. POST /prompt-examples (Educational Endpoint)
+# ================================================
+
+URL: POST http://localhost:8000/prompt-examples
+Description: Demonstrate different prompt types without calling OpenAI
+Content-Type: application/json
+
+### Example 1: Zero-Shot Prompt Demonstration
+Input:
+{
+  "text": "Complete the quarterly report by Friday, it's very important",
+  "prompt_type": "zero-shot"
+}
+
+Expected Output:
+{
+  "prompt_used": "Extract task information from the following text and return it as JSON...",
+  "raw_response": "This endpoint shows the prompt that would be sent to the LLM",
+  "structured_output": null
+}
+
+### Example 2: Few-Shot Prompt Demonstration
+Input:
+{
+  "text": "Schedule a meeting with the team next Tuesday",
+  "prompt_type": "few-shot"
+}
+
+Expected Output:
+{
+  "prompt_used": "Extract task information from text and return as JSON. Here are examples:...",
+  "raw_response": "This endpoint shows the prompt that would be sent to the LLM",
+  "structured_output": null
+}
+
+### Example 3: Chain-of-Thought Prompt Demonstration
+Input:
+{
+  "text": "Buy groceries and clean the house this weekend",
+  "prompt_type": "chain-of-thought"
+}
+
+Expected Output:
+{
+  "prompt_used": "Let's extract task information step by step:...",
+  "raw_response": "This endpoint shows the prompt that would be sent to the LLM",
+  "structured_output": null
+}
+
+## Testing with cURL Commands
+# ============================
+
+### Health Check
+curl -X GET "http://localhost:8000/health"
+
+### Extract Task (Business Scenario)
+curl -X POST "http://localhost:8000/extract-task" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Complete the quarterly report by Friday, it is very important",
+    "prompt_type": "few-shot"
+  }'
+
+### Extract Task (Personal Scenario)
+curl -X POST "http://localhost:8000/extract-task" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Buy groceries sometime this week",
+    "prompt_type": "zero-shot"
+  }'
+
+### Prompt Examples
+curl -X POST "http://localhost:8000/prompt-examples" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Schedule a meeting with the team next Tuesday",
+    "prompt_type": "chain-of-thought"
+  }'
+
+## Testing with Python Requests
+# ==============================
+
+import requests
+import json
+
+# Base URL
+base_url = "http://localhost:8000"
+
+# Test health endpoint
+response = requests.get(f"{base_url}/health")
+print("Health:", response.json())
+
+# Test task extraction
+task_data = {
+    "text": "Complete the quarterly report by Friday, it's very important",
+    "prompt_type": "few-shot"
+}
+response = requests.post(f"{base_url}/extract-task", json=task_data)
+print("Task:", response.json())
+
+# Test prompt examples
+prompt_data = {
+    "text": "Schedule a meeting with the team next Tuesday",
+    "prompt_type": "chain-of-thought"
+}
+response = requests.post(f"{base_url}/prompt-examples", json=prompt_data)
+print("Prompt:", response.json())
+
+## Error Scenarios to Test
+# ========================
+
+### Invalid Prompt Type
+Input:
+{
+  "text": "Complete the report",
+  "prompt_type": "invalid-type"
+}
+Expected: 422 Validation Error
+
+### Empty Text
+Input:
+{
+  "text": "",
+  "prompt_type": "few-shot"
+}
+Expected: 422 Validation Error
+
+### Missing Required Fields
+Input:
+{
+  "prompt_type": "few-shot"
+}
+Expected: 422 Validation Error
+
+### Very Long Text (Testing Limits)
+Input:
+{
+  "text": "[Very long text over 1000 characters...]",
+  "prompt_type": "few-shot"
+}
+Expected: Should handle gracefully
+
+## Performance Testing Scenarios
+# ===============================
+
+### Concurrent Requests
+# Test multiple simultaneous requests to check API performance
+
+### Large Batch Testing
+# Test with multiple different text inputs in sequence
+
+test_texts = [
+    "Complete the project by Monday",
+    "Buy milk and bread",
+    "Schedule dentist appointment",
+    "Review the contract documents",
+    "Plan the weekend trip"
+]
+
+for text in test_texts:
+    data = {"text": text, "prompt_type": "few-shot"}
+    response = requests.post(f"{base_url}/extract-task", json=data)
+    print(f"Text: {text}")
+    print(f"Result: {response.json()}")
+    print("-" * 50)
+
+## Notes for Developers
+# =====================
+
+1. **API Key Required**: The /extract-task endpoint requires a valid OpenAI API key
+2. **Rate Limiting**: Be mindful of OpenAI API rate limits when testing
+3. **Error Handling**: The API includes comprehensive error handling for various scenarios
+4. **Validation**: All inputs are validated using Pydantic models
+5. **Documentation**: Visit http://localhost:8000/docs for interactive API documentation
+6. **Testing**: Use the /prompt-examples endpoint to understand prompts without API calls
+
+## Educational Use Cases
+# ======================
+
+### For Learning Prompt Engineering:
+1. Compare outputs between different prompt types for the same input
+2. Analyze how few-shot examples influence the model's understanding
+3. Observe chain-of-thought reasoning in complex scenarios
+
+### For Understanding Pydantic Validation:
+1. Test with invalid data to see validation errors
+2. Observe how optional fields are handled
+3. Understand enum validation with priority levels
+
+### For API Development:
+1. Study the FastAPI implementation patterns
+2. Learn error handling best practices
+3. Understand structured response design
