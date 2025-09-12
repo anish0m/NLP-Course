@@ -6,3 +6,6 @@ __pycache__
 New folder
 .env.example
 
+chroma_db
+data
+PDF_Data

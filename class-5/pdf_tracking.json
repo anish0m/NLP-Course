@@ -1,0 +1,38 @@
+{
+  "PDF_Data\\Introduction to NLP, LLM and Use cases.pdf": {
+    "hash": "51f08defd939722514d7149d292b2127",
+    "processed_at": "2025-09-12T14:19:32.501799",
+    "name": "Introduction to NLP, LLM and Use cases.pdf",
+    "size": 1831179
+  },
+  "PDF_Data\\Understanding Prompt Hacking.pdf": {
+    "hash": "ed7cd8130eb27c291d2ec31c6145fdec",
+    "processed_at": "2025-09-12T14:19:34.419623",
+    "name": "Understanding Prompt Hacking.pdf",
+    "size": 2340475
+  },
+  "PDF_Data\\Statistics Master Class for Data Science Enthusiasts.pdf": {
+    "hash": "8a7b79d4d5a7755294da0462862339d6",
+    "processed_at": "2025-09-12T15:50:04.271850",
+    "name": "Statistics Master Class for Data Science Enthusiasts.pdf",
+    "size": 1348390
+  },
+  "PDF_Data/invoice.pdf": {
+    "hash": "a3fb87424ba89017dbaf4330de578118",
+    "processed_at": "2025-09-12T16:18:02.244028",
+    "name": "invoice.pdf",
+    "size": 556679
+  },
+  "PDF_Data/planetnine.pdf": {
+    "hash": "e061c7e45e4fc077c3785af98b544d4f",
+    "processed_at": "2025-09-12T16:30:26.072289",
+    "name": "planetnine.pdf",
+    "size": 1905645
+  },
+  "PDF_Data/quibbler.pdf": {
+    "hash": "ff258590dbacd4c8fc0d7ff96080a656",
+    "processed_at": "2025-09-12T16:33:45.988043",
+    "name": "quibbler.pdf",
+    "size": 24881085
+  }
+}

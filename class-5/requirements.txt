@@ -1,0 +1,33 @@
+# Simple RAG Chatbot Requirements
+# LangChain + LangGraph + ChromaDB + OpenAI
+# Compatible with Python 3.12
+
+# Core LangChain components
+langchain>=0.1.0
+langchain-openai>=0.0.5
+langchain-community>=0.0.20
+
+# LangGraph for workflow management (optional)
+# langgraph>=0.0.30
+
+# Vector store
+chromadb>=0.4.20
+
+# PDF processing
+PyPDF2>=3.0.1
+pypdf>=4.0.0
+
+# OpenAI
+openai>=1.10.0
+
+# Additional utilities (Python 3.12 compatible)
+numpy>=1.26.0
+tiktoken>=0.6.0
+python-dotenv>=1.0.0
+
+# FastAPI and web server
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# Alternative: If numpy fails, try installing from wheel
+# pip install numpy --only-binary=numpy
